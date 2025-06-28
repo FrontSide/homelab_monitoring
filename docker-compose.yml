@@ -84,7 +84,7 @@ services:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
-      - /var/lib/docker:/var/lib/docker:ro
+      - /var/snap/docker/common/var-lib-docker:/var/lib/docker:ro
         # https://github.com/google/cadvisor/issues/1565#issuecomment-718812180
       - /var/run/docker.sock:/var/run/docker.sock
       #- /dev/disk:/dev/disk:ro
@@ -108,7 +108,7 @@ services:
       - '--path.procfs=/host/proc'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points'
-      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+      - "^/(sys|proc|dev|host|etc|rootfs/var/snap/docker/common/var-lib-docker/containers|rootfs/var/snap/docker/common/var-lib-docker/overlay2|rootfs/run/docker/netns|rootfs/var/snap/docker/common/var-lib-docker/aufs)($$|/)"
     cpus: 0.5
     mem_limit: 512m
     networks:
@@ -188,7 +188,7 @@ services:
     container_name: promtail
     volumes:
       - ./configs/promtail/promtail.yaml:/etc/promtail/docker-config.yaml
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/snap/docker/common/var-lib-docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/docker-config.yaml
     depends_on:
