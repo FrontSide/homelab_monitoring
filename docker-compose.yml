@@ -11,7 +11,7 @@ x-logging:
 x-common-labels: &default-labels
   logging: "promtail"
   logging_jobname: "containerlogs"
-  stackname: "docker-monitoring-stack-gpnc"
+  stackname: "monitoring"
 
 services:
   grafana:
@@ -42,6 +42,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -71,6 +72,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -92,6 +94,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -113,6 +116,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -133,6 +137,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     depends_on:
       - uncomplicated-alert-receiver
     labels:
@@ -148,6 +153,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -166,6 +172,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -184,6 +191,7 @@ services:
     mem_limit: 512m
     networks:
       - monitoring
+      - uptime-bridge
     labels:
       <<: *default-labels
     logging: *default-logging
@@ -195,3 +203,6 @@ volumes:
 networks:
   monitoring:
     name: monitoring
+  uptime-bridge:
+    name: uptime-bridge
+    external: true
