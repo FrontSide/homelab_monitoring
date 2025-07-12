@@ -19,7 +19,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_USERS_DEFAULT_THEME=light
       - GF_LOG_MODE=console
@@ -27,6 +27,9 @@ services:
       - GF_PANELS_ENABLE_ALPHA=true
       - GF_FEATURE_TOGGLES_ENABLE=accessControlOnCall lokiLogsDataplane
       - GF_INSTALL_PLUGINS=grafana-polystat-panel
+      - GF_SERVER_DOMAIN=home.peric-rieger.eu
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - ./configs/grafana/provisioning/dashboards.yml:/etc/grafana/provisioning/dashboards/provisioning-dashboards.yaml:ro
       - ./configs/grafana/provisioning/datasources.yml:/etc/grafana/provisioning/datasources/provisioning-datasources.yaml:ro
@@ -133,22 +136,6 @@ services:
       - ./configs/alertmanager/alertmanager-fallback-config.yml:/etc/alertmanager/config.yml
     ports:
       - 9093:9093
-    cpus: 0.5
-    mem_limit: 512m
-    networks:
-      - monitoring
-      - uptime-bridge
-    depends_on:
-      - uncomplicated-alert-receiver
-    labels:
-      <<: *default-labels
-    logging: *default-logging
-
-  uncomplicated-alert-receiver:
-    image: ghcr.io/jamesread/uncomplicated-alert-receiver
-    container_name: uncomplicated-alert-receiver
-    ports:
-      - 9094:8080
     cpus: 0.5
     mem_limit: 512m
     networks:

@@ -37,3 +37,7 @@ scrape_configs:
       - targets: [ 'cadvisor:8080' ]
         labels:
           container: 'cadvisor'
+
+  - job_name: saltlevel
+    static_configs:
+      - targets: [ 'saltlevel:8080' ]

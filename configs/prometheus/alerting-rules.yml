@@ -1,4 +1,15 @@
 groups:
+
+- name: saltlevel
+  rules:
+  - alert: SaltLevelLow
+    annotations:
+      summary: The Level of Salt in the Watersoftener is Low
+      description: "The Level of Salt in the Water Softener is down to {{ $value }}%"
+    labels:
+      severity: warning
+    expr: salt_level_pct < 20
+    for: 2m
 - name: node-exporter
   rules:
   - alert: NodeOutOfMemory
