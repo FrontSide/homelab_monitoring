@@ -41,3 +41,9 @@ scrape_configs:
   - job_name: saltlevel
     static_configs:
       - targets: [ 'saltlevel:8080' ]
+
+  - job_name: rez-ai
+    static_configs:
+      - targets: [ 'rez-ai:8000' ]
+        labels:
+          container: 'rez-ai'
