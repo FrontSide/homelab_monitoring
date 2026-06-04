@@ -55,7 +55,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "node-exporter-host:${HOST_IP}"
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--log.level=error'
